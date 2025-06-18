@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Live Packet Sniffer Dashboard</title>
+  <script src="https://cdn.socket.io/4.3.2/socket.io.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body { background-color: #111; color: #eee; }
+    .packet { border-bottom: 1px solid #444; padding: 10px; }
+    .protocol { font-weight: bold; color: gold; }
+    .payload { color: lightgreen; font-size: 0.9em; }
+    #protoChart { margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <div class="container mt-4">
+    <h2 class="text-warning">🛰️ Live Packet Sniffer Dashboard</h2>
+    <input type="text" id="ipFilter" placeholder="Filter by IP, Port or Protocol..." class="form-control my-3">
+    <div id="packets"></div>
+  </div>
+
+  <script>
+    const socket = io('http://localhost:5051');
+    let protocolStats = {};
+
+    socket.on('packet', data => {
+      console.log("RECEIVED:", data); // Debug log
+      const pktDiv = document.createElement('div');
+      pktDiv.className = 'packet';
+      pktDiv.innerHTML = `
+        <div><strong>${data.src}</strong> → <strong>${data.dst}</strong></div>
+        <div class="protocol">${data.protocol} | Port: ${data.port}</div>
+        ${data.payload ? `<div class="payload">Payload: ${data.payload}</div>` : ''}
+      `;
+      const container = document.getElementById('packets');
+      container.prepend(pktDiv);
+      if (container.childNodes.length > 100) container.removeChild(container.lastChild);
+
+      protocolStats[data.protocol] = (protocolStats[data.protocol] || 0) + 1;
+    });
+
+    document.getElementById('ipFilter').addEventListener('input', function() {
+      const filter = this.value.toLowerCase();
+      const packets = document.querySelectorAll('.packet');
+      packets.forEach(pkt => {
+        pkt.style.display = pkt.innerText.toLowerCase().includes(filter) ? '' : 'none';
+      });
+    });
+  </script>
+</body>
+</html>
