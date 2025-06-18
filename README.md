@@ -1,5 +1,3 @@
-### 📄 Final `README.md` (with badge)
-
 # 🕵️‍♂️ Python Packet Sniffer with HTML Dashboard
 
 [![Python](https://img.shields.io/badge/Python-3.8%2B-blue?logo=python)](https://www.python.org/)
@@ -27,11 +25,7 @@ packet-sniffer/
 ├── packet\_sniffer.py         # Python script for live packet capture
 ├── dashboard.html            # Simple visual dashboard (static)
 ├── requirements.txt          # Python dependencies
-├── .gitignore                # Ignore cache files and temp stuff
 └── README.md                 # You're here
-
-
-
 
 
 ## 🛠️ Installation & Setup
