@@ -17,16 +17,6 @@ This project is a lightweight **network packet sniffer** written in **Python** u
 - ✅ HTML dashboard for traffic visualization (pie chart, tables, etc.)  
 - ✅ Easy to expand with ARP, ICMP, filtering, etc.
 
----
-
-## 📂 Project Structure
-
-packet-sniffer/
-├── packet\_sniffer.py         # Python script for live packet capture
-├── dashboard.html            # Simple visual dashboard (static)
-├── requirements.txt          # Python dependencies
-└── README.md                 # You're here
-
 
 ## 🛠️ Installation & Setup
 
@@ -49,7 +39,7 @@ pip install -r requirements.txt
 
 ## ▶️ Usage
 
-### Run the packet sniffer
+## Run the packet sniffer
 
 ```bash
 python packet_sniffer.py
